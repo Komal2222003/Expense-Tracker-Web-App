@@ -1,0 +1,34 @@
+let total = 0;
+
+function addExpense() {
+    const name = document.getElementById("expenseName").value;
+    const amount = parseFloat(document.getElementById("expenseAmount").value);
+
+    if (name === "" || isNaN(amount)) {
+        alert("Please enter a valid expense name and amount!");
+        return;
+    }
+
+    const expenseList = document.getElementById("expenseList");
+
+    const li = document.createElement("li");
+    li.innerHTML = `
+        ${name} - ₹${amount}
+        <button onclick="deleteExpense(this, ${amount})">Delete</button>
+    `;
+
+    expenseList.appendChild(li);
+
+    total += amount;
+    document.getElementById("total").textContent = total;
+
+    document.getElementById("expenseName").value = "";
+    document.getElementById("expenseAmount").value = "";
+}
+
+function deleteExpense(button, amount) {
+    button.parentElement.remove();
+
+    total -= amount;
+    document.getElementById("total").textContent = total;
+}
